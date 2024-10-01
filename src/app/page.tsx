@@ -99,7 +99,7 @@ export default function Portfolio() {
               </Avatar>
               <div>
                 <h2 className="text-3xl font-bold mb-4">
-                  👋 Hi, I'm Shinji Ikari.
+                  Hi, I'm Shinji Ikari
                 </h2>
                 <p className="text-xl text-muted-foreground">
                   A passionate full-stack developer with a love for creating
