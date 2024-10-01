@@ -1,6 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { MenuToggle } from "@/components/menu-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,16 +14,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { GithubIcon, LinkedinIcon, MailIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { GithubIcon, LinkedinIcon, MailIcon, MenuIcon } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Portfolio() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos, visible]);
+
+  const menuItems = [
+    { item: "About", url: "#about" },
+    { item: "Projects", url: "#projects" },
+    { item: "Skills", url: "#skills" },
+    { item: "Contact", url: "#contact" },
+  ];
 
   const projects = [
     { title: "Project 1", description: "A brief description of Project 1" },
@@ -34,63 +57,49 @@ export default function Portfolio() {
     "Tailwind CSS",
     "Node.js",
     "GraphQL",
+    "MongoDB",
   ];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-10 bg-background border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <header
+        className={`sticky top-0 z-10 bg-background border-b transition-transform duration-300 ease-in-out ${
+          visible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="container mx-auto md:p-4 p-3 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Shinji Ikari</h1>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <MenuIcon className="h-6 w-6" />
-          </Button>
-          <nav className={`${isMenuOpen ? "block" : "hidden"} md:block`}>
-            <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
-              <li>
-                <a href="#about" className="hover:text-primary">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="hover:text-primary">
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a href="#skills" className="hover:text-primary">
-                  Skills
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-primary">
-                  Contact
-                </a>
-              </li>
-              <ThemeToggle />
-            </ul>
-          </nav>
+          <div className="flex justify-center items-center gap-2">
+            <nav className="hidden md:block md:mr-6">
+              <ul className="flex flex-row justify-center items-center gap-8">
+                {menuItems.map((item, index) => (
+                  <li key={index}>
+                    <Link href={item.url} className="hover:text-slate-300">
+                      {item.item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div className="md:hidden">
+              <MenuToggle />
+            </div>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <section id="about" className="mb-16">
+        <section id="about" className="pt-5 mb-16">
           <Card>
             <CardContent className="flex flex-col md:flex-row items-center gap-8 p-6">
               <Avatar className="w-32 h-32">
-                <AvatarImage
-                  src="/placeholder.svg?height=128&width=128"
-                  alt="Shinji Ikari"
-                />
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarImage src="/me.png" alt="Shinji Ikari" />
+                <AvatarFallback>SI</AvatarFallback>
               </Avatar>
               <div>
                 <h2 className="text-3xl font-bold mb-4">
-                  Hi, I'm Shinji Ikari. 👋
+                  👋 Hi, I'm Shinji Ikari.
                 </h2>
                 <p className="text-xl text-muted-foreground">
                   A passionate full-stack developer with a love for creating
@@ -112,7 +121,7 @@ export default function Portfolio() {
                 <CardContent>
                   <p>{project.description}</p>
                 </CardContent>
-                <CardDescription>
+                <CardDescription className="w-5/6 mx-6 mb-3">
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Natus rerum autem a tempore rem distinctio? Debitis laboriosam
                   pariatur enim cupiditate, cum, veritatis quae et rem
@@ -164,15 +173,21 @@ export default function Portfolio() {
       <footer className="bg-muted mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-center space-x-4">
-            <Button variant="ghost" size="icon">
-              <GithubIcon className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <LinkedinIcon className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <MailIcon className="h-5 w-5" />
-            </Button>
+            <Link href={"https://github.com/shinji29"} target="_blank">
+              <Button variant="ghost" size="icon">
+                <GithubIcon className="h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href={"/"}>
+              <Button variant="ghost" size="icon">
+                <LinkedinIcon className="h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href={"/"}>
+              <Button variant="ghost" size="icon">
+                <MailIcon className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
           <p className="text-center mt-4 text-sm text-muted-foreground">
             © 2024 Shinji Ikari. All rights reserved.
