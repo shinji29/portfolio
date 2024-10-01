@@ -28,7 +28,7 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 50);
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
       setPrevScrollPos(currentScrollPos);
     };
 
@@ -67,8 +67,10 @@ export default function Portfolio() {
           visible ? "md:translate-y-0" : "md:-translate-y-full"
         }`}
       >
-        <div className="container mx-auto md:p-4 p-2 flex justify-between items-center">
-          <h1 className="md:text-2xl text-xl font-bold">Shinji Ikari</h1>
+        <div className="container mx-auto md:p-4 p-3 flex justify-between items-center">
+          <h1 className="md:text-2xl text-xl font-bold">
+            <Link href={"/"}>Shinji Ikari</Link>
+          </h1>
           <div className="flex justify-center items-center gap-2">
             <nav className="hidden md:block md:mr-6">
               <ul className="flex flex-row justify-center items-center gap-8">
@@ -89,8 +91,8 @@ export default function Portfolio() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-16">
-        <section className="mb-16" id="about">
+      <main className="container mx-auto px-4">
+        <section className="mb-20 pt-20" id="about">
           <Card>
             <CardContent className="flex flex-col md:flex-row items-center gap-8 p-6">
               <Avatar className="w-32 h-32">
@@ -110,7 +112,7 @@ export default function Portfolio() {
           </Card>
         </section>
 
-        <section id="projects" className="mb-16">
+        <section id="projects" className="pt-16">
           <h2 className="text-2xl font-bold mb-6">Projects</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
@@ -135,7 +137,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="skills" className="mb-16">
+        <section id="skills" className="pt-16">
           <h2 className="text-2xl font-bold mb-6">Skills</h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill, index) => (
@@ -146,7 +148,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="contact">
+        <section id="contact" className="pt-16">
           <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
           <Card>
             <CardContent className="p-6">
