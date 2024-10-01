@@ -18,7 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { GithubIcon, LinkedinIcon, MailIcon } from "lucide-react";
+import { Github, LinkedinIcon, MailIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Portfolio() {
@@ -27,8 +27,8 @@ export default function Portfolio() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      const currentScrollPos = window.scrollY;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 50);
       setPrevScrollPos(currentScrollPos);
     };
 
@@ -64,11 +64,11 @@ export default function Portfolio() {
     <div className="min-h-screen bg-background text-foreground">
       <header
         className={`sticky top-0 z-10 bg-background border-b transition-transform duration-300 ease-in-out ${
-          visible ? "translate-y-0" : "-translate-y-full"
+          visible ? "md:translate-y-0" : "md:-translate-y-full"
         }`}
       >
-        <div className="container mx-auto md:p-4 p-3 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Shinji Ikari</h1>
+        <div className="container mx-auto md:p-4 p-2 flex justify-between items-center">
+          <h1 className="md:text-2xl text-xl font-bold">Shinji Ikari</h1>
           <div className="flex justify-center items-center gap-2">
             <nav className="hidden md:block md:mr-6">
               <ul className="flex flex-row justify-center items-center gap-8">
@@ -89,8 +89,8 @@ export default function Portfolio() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <section id="about" className="pt-5 mb-16">
+      <main className="container mx-auto px-4 py-16">
+        <section className="mb-16" id="about">
           <Card>
             <CardContent className="flex flex-col md:flex-row items-center gap-8 p-6">
               <Avatar className="w-32 h-32">
@@ -98,10 +98,10 @@ export default function Portfolio() {
                 <AvatarFallback>SI</AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="text-3xl font-bold mb-4">
+                <h2 className="md:text-3xl text-xl font-bold mb-4">
                   👋 Hi, I am Shinji Ikari.
                 </h2>
-                <p className="text-xl text-muted-foreground">
+                <p className="md:text-xl text-left text-md text-muted-foreground">
                   A passionate full-stack developer with a love for creating
                   elegant, efficient, and user-friendly web applications.
                 </p>
@@ -175,7 +175,7 @@ export default function Portfolio() {
           <div className="flex justify-center space-x-4">
             <Link href={"https://github.com/shinji29"} target="_blank">
               <Button variant="ghost" size="icon">
-                <GithubIcon className="h-5 w-5" />
+                <Github className="h-5 w-5" />
               </Button>
             </Link>
             <Link href={"/"}>
