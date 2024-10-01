@@ -92,7 +92,7 @@ export default function Portfolio() {
       </header>
 
       <main className="container mx-auto px-4">
-        <section className="mb-32 pt-32" id="about">
+        <section className="mb-52 pt-52" id="about">
           <Card>
             <CardContent className="flex flex-col md:flex-row items-center gap-8 p-6">
               <Avatar className="w-32 h-32">
@@ -112,7 +112,7 @@ export default function Portfolio() {
           </Card>
         </section>
 
-        <section id="projects" className="pt-16">
+        <section id="projects" className="pt-20 mb-16">
           <h2 className="text-2xl font-bold mb-6">Projects</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
@@ -137,7 +137,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="skills" className="pt-16">
+        <section id="skills" className="pt-20 mb-16">
           <h2 className="text-2xl font-bold mb-6">Skills</h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill, index) => (
@@ -172,7 +172,7 @@ export default function Portfolio() {
         </section>
       </main>
 
-      <footer className="bg-muted mt-16">
+      <footer className="bg-muted mt-20">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-center space-x-4">
             <Link href={"https://github.com/shinji29"} target="_blank">
