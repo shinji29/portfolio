@@ -148,7 +148,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="contact" className="pt-16">
+        <section id="contact" className="pt-20">
           <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
           <Card>
             <CardContent className="p-6">
