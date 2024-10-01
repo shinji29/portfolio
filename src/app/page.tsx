@@ -92,7 +92,7 @@ export default function Portfolio() {
       </header>
 
       <main className="container mx-auto px-4">
-        <section className="mb-52 pt-52" id="about">
+        <section className="mb-52 md:pt-52 pt-32" id="about">
           <Card>
             <CardContent className="flex flex-col md:flex-row items-center gap-8 p-6">
               <Avatar className="w-32 h-32">
